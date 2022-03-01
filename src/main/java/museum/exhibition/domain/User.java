@@ -3,6 +3,7 @@ package museum.exhibition.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseTimeEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(nullable = false)
@@ -25,12 +26,12 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user")
+    @Nullable
     private List<UserReservationJoin> reservations;
 
 
     @Builder
-    public User(Long id, String name, String password, String email) {
-        this.id = id;
+    public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;

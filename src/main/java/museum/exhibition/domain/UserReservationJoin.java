@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class UserReservationJoin {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
