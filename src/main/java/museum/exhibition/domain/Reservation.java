@@ -1,8 +1,8 @@
 package museum.exhibition.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import museum.exhibition.web.ReservationDto;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -10,44 +10,63 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class Reservation extends BaseTimeEntity{
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "title", "period"})
+public class Reservation{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String period;
-
-    @OneToMany(mappedBy = "reservation")
-    private List<UserReservationJoin> users;
 
     @Nullable
     private String memo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Builder
-    public Reservation(String title, String period, List<UserReservationJoin> users) {
+    public Reservation(String title, String period) {
         this.title = title;
         this.period = period;
-        this.users = users;
     }
 
     @Builder
-    public Reservation(String title, String period, List<UserReservationJoin> users, String memo) {
+    public Reservation(String title, String period, User user) {
         this.title = title;
         this.period = period;
-        this.users = users;
+        this.user = user;
+    }
+
+    @Builder
+    public Reservation(String title, String period, User user, String memo) {
+        this.title = title;
+        this.period = period;
+        this.user = user;
         this.memo = memo;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String addMemo(String memo) {
         this.memo = memo;
         return memo;
+    }
+
+    @Builder
+    public Reservation(ReservationDto reservationDto, User user) {
+        this.title = reservationDto.getTitle();
+        this.period = reservationDto.getPeriod();
+        this.memo = reservationDto.getMemo();
+        this.user = user;
     }
 
 }
