@@ -2,7 +2,6 @@ package museum.exhibition.domain;
 
 import lombok.*;
 import museum.exhibition.web.ReservationDto;
-import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "title", "period"})
-public class Reservation{
+public class Reservation extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

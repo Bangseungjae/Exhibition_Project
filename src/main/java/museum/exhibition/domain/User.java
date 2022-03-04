@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 @ToString(of = {"id", "name", "email", "reservations"})
-public class User{
+public class User extends BaseTimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
