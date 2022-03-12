@@ -20,7 +20,8 @@ class UserServiceTest {
     @Test
     public void 가입하기(){
         JoinDto joinDto = new JoinDto("asdf", "sj1209", "tmdwo", "tmdwo5825@naver.com");
-        Long saveId = userService.save(joinDto);
+        User user = new User(joinDto);
+        Long saveId = userService.save(user);
 
         JoinDto joinDto1 = userService.findById(saveId);
         Assertions.assertThat(joinDto).isEqualTo(joinDto1);

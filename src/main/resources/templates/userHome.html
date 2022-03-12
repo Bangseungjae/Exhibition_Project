@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<title>대한민국 역사박물관 전시정보</title>
+</head>
+<body>
+<div class="row container" >
+    <div class="col-md-6">
+        <div class="font-monospace" th:each="info : ${infos}">
+            <div class="d-flex">
+                <button id="btn-save" class="w-auto btn-primary">찜
+                    <input type="hidden" th:id="title" th:value="${info.title}">
+                    <input type="hidden" id="url" th:value="${info.url}">
+                    <input type="hidden" id="period" th:value="${info.eventPeriod}"></button>
+                <div class="d-block">
+                    <div>
+                        전시 이름 :
+                        <a th:href="${info.url}" th:text="${info.title}"></a>
+
+                    </div>
+                    <div>
+                        전시기간 :
+                        <span th:text="${info.eventPeriod}"></span>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <h3 th:text="| ${userWebDto.name}의 찜한 전시|">찜한 전시</h3>
+        <br>
+        <form action="" th:object="${userWebDto}">
+        <div th:each="reservation : *{reservations}">
+            <button id="btn-delete" class="btn-danger w-auto">삭제
+                <input type="hidden" id="d-id" th:value="${reservation.id}">
+                <input type="hidden" id="d-title" th:value="${reservation.title}">
+                <input type="hidden" id="d-period" th:value="${reservation.period}">
+                <input type="hidden" id="d-url" th:value="${reservation.url}"></button>
+            </button>
+               <p>전시 이름 : </p>
+            <a th:href="${reservation.url}" class="d-inline"><div th:text="|${reservation.title}|"></div></a>
+            <div th:text="|전시 기간 : ${reservation.period}|"></div>
+        </div>
+        </form>
+    </div>
+    <input type="hidden" th:value="${userWebDto.id}" id="id">
+</div>
+
+<script language="JavaScript" type="text/javascript" src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</body>
+</html>
+

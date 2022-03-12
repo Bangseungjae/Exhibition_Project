@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Long save(JoinDto joinDto) {
-        User user = new User(joinDto.getName(), joinDto.getLoginId(), joinDto.getPassword(), joinDto.getEmail());
+    public Long save(User user) {
         Long id = userRepository.save(user).getId();
         return id;
     }
@@ -30,23 +29,31 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public JoinDto findById(Long id){
+//        User user = userRepository.findById(id).get();
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id = " + id));
         return new JoinDto(user);
     }
 
     @Transactional(readOnly = true)
+    public User findUserbyId(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Transactional(readOnly = true)
     public UserWebDto findUserWebbyId(Long id) {
+
         UserWebDto userWebDto = userRepository.findUserWebDto(id);
         return userWebDto;
+    }
+
+    @Transactional(readOnly = true)
+    public User findUserByLogin(UserLoginDto loginDto) {
+        return userRepository.login(loginDto);
     }
 
     public void delete(Long id){
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id = " + id));
         userRepository.delete(user);
-    }
-
-    public User login(UserLoginDto loginDto) {
-        return userRepository.login(loginDto);
     }
 
 }

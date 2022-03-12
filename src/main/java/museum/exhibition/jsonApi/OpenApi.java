@@ -77,10 +77,4 @@ public class OpenApi {
         return info;
     }
 
-    public void OpenApi2() throws IOException  {
-
-        URL url = new URL("http://api.kcisa.kr/openapi/service/rest/meta2020/getMCHBspecial");
-
-
-    }
 }

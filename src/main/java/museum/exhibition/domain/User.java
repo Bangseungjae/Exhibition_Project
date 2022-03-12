@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @ToString(of = {"id", "name", "email", "reservations"})
 public class User extends BaseTimeEntity{
 
@@ -51,6 +51,7 @@ public class User extends BaseTimeEntity{
     }
 
     public User(JoinDto joinDto1) {
+        this.loginId = joinDto1.getLoginId();
         this.name = joinDto1.getName();
         this.password = joinDto1.getPassword();
         this.email = joinDto1.getEmail();

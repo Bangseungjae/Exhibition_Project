@@ -46,9 +46,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .join(user.reservations, reservation).fetchJoin()
                 .where(user.id.eq(id))
                 .fetchOne();
+        return new UserWebDto(user1, user1.getReservations());
+        }
 
-        return new UserWebDto(user1.getName(), user1.getReservations());
     }
 
-
-}

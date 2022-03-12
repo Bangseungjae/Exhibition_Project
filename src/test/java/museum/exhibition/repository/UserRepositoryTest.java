@@ -3,16 +3,13 @@ package museum.exhibition.repository;
 import museum.exhibition.domain.Reservation;
 import museum.exhibition.domain.User;
 import museum.exhibition.repository.UserRepository.UserRepository;
-import org.junit.jupiter.api.AfterEach;
+import museum.exhibition.repository.reservationRePository.ReservationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;

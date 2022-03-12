@@ -1,12 +1,17 @@
 package museum.exhibition.web;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import museum.exhibition.domain.User;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
 public class JoinDto {
+
+    private Long id;
 
     @NotEmpty
     private String loginId;
@@ -25,6 +30,7 @@ public class JoinDto {
         this.password = user.getPassword();
         this.name = user.getName();
         this.email = user.getEmail();
+        this.id = user.getId();
     }
 
     public JoinDto(String loginId, String password, String name, String email) {

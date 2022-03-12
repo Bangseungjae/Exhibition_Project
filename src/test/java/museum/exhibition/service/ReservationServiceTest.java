@@ -6,8 +6,6 @@ import museum.exhibition.web.JoinDto;
 import museum.exhibition.web.ReservationDto;
 import museum.exhibition.web.UserLoginDto;
 import museum.exhibition.web.UserWebDto;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static museum.exhibition.domain.QReservation.reservation;
 
 @SpringBootTest
 class ReservationServiceTest {
@@ -28,7 +26,8 @@ class ReservationServiceTest {
     @BeforeEach
     public void before() {
         JoinDto joinUser = new JoinDto("tmdwo", "sj1209", "홍길동", "123@naver.com");
-        userService.save(joinUser);
+        User user = new User(joinUser);
+        userService.save(user);
     }
 
 
@@ -36,9 +35,9 @@ class ReservationServiceTest {
     public void 전시회_추가(){
 
         UserLoginDto userLoginDto = new UserLoginDto("tmdwo", "sj1209");
-        User loginUser = userService.login(userLoginDto);
+        User loginUser = userService.findUserByLogin(userLoginDto);
 
-        ReservationDto reservationDto = new ReservationDto("title", "기간", "memo");
+        ReservationDto reservationDto = new ReservationDto("title", "기간", "memo", "www.wwww");
 
 
 
@@ -48,7 +47,8 @@ class ReservationServiceTest {
         UserWebDto userWebDto = userService.findUserWebbyId(loginUser.getId());
 
 
-        List<Reservation> reservation = userWebDto.getReservation();
+        List<ReservationDto> reservations = userWebDto.getReservations();
+
         System.out.println("reservation = " + reservation);
     }
 }

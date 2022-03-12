@@ -31,6 +31,8 @@ public class Reservation extends BaseTimeEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String url;
+
     @Builder
     public Reservation(String title, String period) {
         this.title = title;
@@ -65,6 +67,7 @@ public class Reservation extends BaseTimeEntity{
         this.title = reservationDto.getTitle();
         this.period = reservationDto.getPeriod();
         this.memo = reservationDto.getMemo();
+        this.url = reservationDto.getUrl();
         this.user = user;
     }
 
