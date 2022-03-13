@@ -53,7 +53,7 @@ public class ExhibitionController {
         return "redirect:/";
     }
 
-    @GetMapping("/login")
+    @PostMapping("/")
     public String login(@ModelAttribute("loginDto") UserLoginDto userLoginDto, Model model) throws IOException {
         Info[] infos = openApi.getInfos("1");
         model.addAttribute("infos", infos);
